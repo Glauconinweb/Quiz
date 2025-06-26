@@ -8,11 +8,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import feedbackRoutes from "./routes/feedbackRoutes.js";
 const __dirname = path.resolve();
-
+const app = express();
 app.use(express.static(path.join(__dirname, "frontend/public")));
 
 dotenv.config();
-const app = express();
+
 const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
