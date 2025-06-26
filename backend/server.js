@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import feedbackRoutes from "./routes/feedbackRoutes.js";
 const __dirname = path.resolve();
 const app = express();
-app.use(express.static(path.join(__dirname, "frontend/public")));
+app.use(express.static(path.join(__dirname, "frontend", "public")));
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ app.use("/scores", scoreRoutes);
 app.use("/feedback", feedbackRoutes);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend/public", "index.html"));
+  res.sendFile(path.join(__dirname, "frontend", "public", "index.html"));
 });
 
 app.listen(PORT, () => {
