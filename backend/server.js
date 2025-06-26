@@ -6,19 +6,20 @@ import { PrismaClient } from "@prisma/client";
 import scoreRoutes from "./routes/scoreRoutes.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import feedbackRoutes from "./routes/feedbackRoutes.js";
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, "frontend/public")));
 
 dotenv.config();
 const app = express();
-
-import path from "path";
-import { fileURLToPath } from "url";
-
 const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
 app.use("/auth", authRoutes);
 app.use("/scores", scoreRoutes);
+app.use("/feedback", feedbackRoutes);
 
 app.get("/", (req, res) => {
   res.send("API pronta para uso!");

@@ -14,7 +14,10 @@
     <nav id="sidebar" class="sidebar">
       <ul>
         <li><a href="#" onclick="logout()">Encerrar Sessão</a></li>
-        <li><a href="#">Placar</a></li>
+        <li><a href="placar.html">Placar</a></li>
+        <li>
+          <a href="areaFeedBack.html">Feedback</a>
+        </li>
       </ul>
     </nav>
 
@@ -68,14 +71,13 @@
           sidebar.classList.remove("active");
         }
       });
-      // ...existing code...
 
       async function mostrarPlacar() {
         const placarDiv = document.getElementById("placar");
         placarDiv.innerHTML = "<b>Carregando placar...</b>";
         placarDiv.style.display = "block";
         try {
-          const res = await fetch("http://localhost:3000/scores");
+          const res = await fetch("/scores");
           const top = await res.json();
           if (top.length === 0) {
             placarDiv.innerHTML = "<b>Nenhum placar registrado ainda.</b>";
@@ -94,12 +96,10 @@
 
       // Esconde o placar ao clicar fora dele ou na sidebar
       document
-        .querySelector('a[href="#"]')
+        .querySelector('a[href="placar.html"]')
         .addEventListener("click", function (e) {
-          if (this.textContent.includes("Placar")) {
-            e.preventDefault();
-            mostrarPlacar();
-          }
+          e.preventDefault();
+          mostrarPlacar();
           window.addEventListener("click", function (event) {
             const placarDiv = document.getElementById("placar");
             if (
@@ -113,6 +113,6 @@
         });
     </script>
 
-    <script src="/backend/controllers/quizController.js"></script>
+    <script src="quizController.js"></script>
   </body>
 </html>

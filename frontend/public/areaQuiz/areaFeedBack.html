@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/frontend/public/stylee.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <title>\Area de Feedback</title>
+  </head>
+  <body>
+    <button id="openSidebar" class="sidebar-toggle">☰</button>
+
+    <!-- Sidebar -->
+    <nav id="sidebar" class="sidebar">
+      <ul>
+        <li><a href="/frontend/public/index.html">Encerrar Sessão</a></li>
+        <li><a href="./placar.html">Placar</a></li>
+        <li><a href="./home.html">Quiz</a></li>
+      </ul>
+    </nav>
+    <main>
+      <div class="conteinerr">
+        <h1>Área de Feedback</h1>
+        <p>
+          Obrigado por participar do nosso quiz! Sua opinião é muito importante
+          para nós.
+        </p>
+        <br />
+        <form id="feedbackForm">
+          <label for="feedback">Deixe seu feedback:</label><br />
+          <br />
+          <textarea
+            class="textArea"
+            id="feedback"
+            name="feedback"
+            rows="4"
+            cols="50"
+            required
+          ></textarea
+          ><br />
+          <button class="btn1" type="submit">Enviar Feedback</button>
+        </form>
+        <div id="thankYouMessage" style="display: none">
+          <p>Obrigado pelo seu feedback!</p>
+        </div>
+      </div>
+    </main>
+    <script>
+      // Sidebar toggle
+      const sidebar = document.getElementById("sidebar");
+      const openBtn = document.getElementById("openSidebar");
+
+      openBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+      });
+
+      // Fecha o sidebar ao clicar fora dele
+      window.addEventListener("click", function (event) {
+        if (
+          sidebar.classList.contains("active") &&
+          !sidebar.contains(event.target) &&
+          event.target !== openBtn
+        ) {
+          sidebar.classList.remove("active");
+        }
+      });
+      document
+        .getElementById("feedbackForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const feedback = document.getElementById("feedback").value.trim();
+          if (!feedback) return;
+
+          const res = await fetch("/feedback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: feedback }),
+          });
+
+          if (res.ok) {
+            document.getElementById("feedbackForm").style.display = "none";
+            document.getElementById("thankYouMessage").style.display = "block";
+          } else {
+            alert("Erro ao enviar feedback.");
+          }
+        });
+    </script>
+  </body>
+</html>

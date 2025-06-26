@@ -18,35 +18,23 @@
   </head>
   <body>
     <main class="conteiner">
-      <form>
+      <form id="loginForm">
         <h1>Login</h1>
         <div class="input-box">
-          <input placeholder="Usuário" type="email" name="email" required />
+          <input id="name" placeholder="Nome" type="text" required />
           <i class="bx bxs-user"></i>
         </div>
-        <div class="input-box">
-          <input placeholder="Senha" type="password" name="senha" required />
-          <i class="bx bxs-lock-alt"></i>
+        <select class="select" id="var">
+          <option value="no-studant">Não Estudante</option>
+          <option value="studant">Estudante</option>
+        </select>
+        <div class="input-box" id="school-box" style="display: none">
+          <input placeholder="Escola" type="text" id="escholl" />
+          <i class="bx bx-buildings"></i>
         </div>
-
-        <div class="remenber-forgot">
-          <label><input type="checkbox" /> Lembrar minha Senha</label>
-          <a href="recoverPassword.html">Esqueci minha Senha</a>
-        </div>
-
-        <button type="submit" class="login">Login</button>
-
-        <div class="register-link">
-          <p>
-            <span
-              >Não tem uma Conta ainda?
-              <a href="newCont.html">Cadastre-se Agora Clique Aqui!</a>
-            </span>
-          </p>
-        </div>
+        <button type="submit" class="login">Entrar</button>
       </form>
     </main>
-
     <script type="module" src="login.js"></script>
   </body>
 </html>

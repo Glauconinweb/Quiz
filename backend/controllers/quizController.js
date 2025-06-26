@@ -286,8 +286,9 @@ nextButton.addEventListener("click", () => {
 startQuiz();
 // ...existing code...
 
+// Troque "/scores" pela URL completa do backend:
 async function salvarScore(nome, score) {
-  await fetch("http://localhost:3000/score", {
+  await fetch("/scores", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name: nome, score }),
@@ -295,9 +296,13 @@ async function salvarScore(nome, score) {
 }
 
 async function mostrarPlacar() {
-  const res = await fetch("http://localhost:3000/score");
+  let placarDiv = document.getElementById("placar-top3");
+  if (placarDiv) placarDiv.remove();
+
+  const res = await fetch("/scores");
   const top = await res.json();
-  const placarDiv = document.createElement("div");
+  placarDiv = document.createElement("div");
+  placarDiv.id = "placar-top3";
   placarDiv.innerHTML = "<h2>Top 3 Jogadores</h2>";
   top.forEach((item, idx) => {
     placarDiv.innerHTML += `<p><b>${idx + 1}º</b> ${item.name}: ${
@@ -307,18 +312,5 @@ async function mostrarPlacar() {
   questionElement.parentNode.appendChild(placarDiv);
 }
 
-function showScore() {
-  resetState();
-  questionElement.innerHTML = `Você acertou ${score} de ${questions.length}! `;
-  nextButton.innerHTML = "Play Again";
-  nextButton.style.display = "block";
-
-  // Salva score e mostra placar
-  const usuario = JSON.parse(sessionStorage.getItem("usuarioLogado") || "{}");
-  if (usuario.nome) {
-    salvarScore(usuario.nome, score).then(mostrarPlacar);
-  } else {
-    mostrarPlacar();
-  }
-}
-// ...existing code...
+// No final do quiz, chame salvarScore(usuario.nome, score);
+// No final do quiz, chame salvarScore(usuario.nome, score);

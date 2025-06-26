@@ -10,12 +10,21 @@ datasource db {
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  email     String   @unique
+  email     String   
   password  String
   telephone String?
+  tipo      String
+  escola    String?
 }
+
 model Score {
   id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  name   String
+  name   String   
   score  Int
+}
+
+model Feedback {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  message String
+  createdAt DateTime @default(now())
 }

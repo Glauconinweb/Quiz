@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/frontend/public/stylee.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <title>Placar dos Jogadores</title>
+    <style>
+      .top1 {
+        background: gold;
+        font-weight: bold;
+      }
+      .top2 {
+        background: silver;
+        font-weight: bold;
+      }
+      .top3 {
+        background: #cd7f32;
+        font-weight: bold;
+      }
+      .placar-list {
+        margin-top: 24px;
+      }
+      .placar-list p {
+        margin: 6px 0;
+        padding: 6px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="a12">
+      <div class="containerr">
+        <h1>Placar dos Jogadores</h1>
+        <div id="placar" class="placar-list"></div>
+        <a class="a11" href="home.html">Voltar ao Quiz</a>
+      </div>
+    </main>
+    <script>
+      async function carregarPlacar() {
+        const placarDiv = document.getElementById("placar");
+        placarDiv.innerHTML = "<b>Carregando placar...</b>";
+        try {
+          const res = await fetch("/scores");
+          const scores = await res.json();
+          if (!scores.length) {
+            placarDiv.innerHTML = "<b>Nenhum placar registrado ainda.</b>";
+            return;
+          }
+          let html = "<h2>Ranking</h2>";
+          scores.forEach((item, idx) => {
+            let classe = "";
+            if (idx === 0) classe = "top1";
+            else if (idx === 1) classe = "top2";
+            else if (idx === 2) classe = "top3";
+            html += `<p${classe ? ` class="${classe}"` : ""}><b>${
+              idx + 1
+            }º</b> ${item.name}: ${item.score} pts</p>`;
+          });
+          placarDiv.innerHTML = html;
+        } catch {
+          placarDiv.innerHTML = "<b>Erro ao carregar placar.</b>";
+        }
+      }
+      carregarPlacar();
+    </script>
+  </body>
+</html>
