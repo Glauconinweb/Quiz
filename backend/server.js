@@ -21,8 +21,8 @@ app.use("/auth", authRoutes);
 app.use("/scores", scoreRoutes);
 app.use("/feedback", feedbackRoutes);
 
-app.get("/", (req, res) => {
-  res.send("API pronta para uso!");
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/public", "index.html"));
 });
 
 app.listen(PORT, () => {
