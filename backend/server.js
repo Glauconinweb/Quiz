@@ -25,7 +25,7 @@ app.use("/scores", scoreRoutes);
 app.use("/feedback", feedbackRoutes);
 
 // Servir frontend
-app.use(express.static(path.join(__dirname, "frontend", "public")));
+app.use(express.static(path.join(__dirname, "frontend")));
 
 // Fallback para SPA
 app.get("/:path(*)", (req, res) => {
