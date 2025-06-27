@@ -71,46 +71,6 @@
           sidebar.classList.remove("active");
         }
       });
-
-      async function mostrarPlacar() {
-        const placarDiv = document.getElementById("placar");
-        placarDiv.innerHTML = "<b>Carregando placar...</b>";
-        placarDiv.style.display = "block";
-        try {
-          const res = await fetch("/scores");
-          const top = await res.json();
-          if (top.length === 0) {
-            placarDiv.innerHTML = "<b>Nenhum placar registrado ainda.</b>";
-            return;
-          }
-          placarDiv.innerHTML = "<h2>Top 3 Jogadores</h2>";
-          top.forEach((item, idx) => {
-            placarDiv.innerHTML += `<p><b>${idx + 1}º</b> ${item.name}: ${
-              item.score
-            } pts</p>`;
-          });
-        } catch {
-          placarDiv.innerHTML = "<b>Erro ao carregar placar.</b>";
-        }
-      }
-
-      // Esconde o placar ao clicar fora dele ou na sidebar
-      document
-        .querySelector('a[href="placar.html"]')
-        .addEventListener("click", function (e) {
-          e.preventDefault();
-          mostrarPlacar();
-          window.addEventListener("click", function (event) {
-            const placarDiv = document.getElementById("placar");
-            if (
-              placarDiv.style.display === "block" &&
-              !placarDiv.contains(event.target) &&
-              !event.target.textContent.includes("Placar")
-            ) {
-              placarDiv.style.display = "none";
-            }
-          });
-        });
     </script>
 
     <script src="quizController.js"></script>

@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
+  name      String 
   email     String   
   password  String
   telephone String?
@@ -19,7 +19,7 @@ model User {
 
 model Score {
   id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  name   String   
+  name   String  @unique  
   score  Int
 }
 

@@ -265,6 +265,9 @@ function showScore() {
   questionElement.innerHTML = `Você acertou ${score} de ${questions.length}! `;
   nextButton.innerHTML = "Play Again";
   nextButton.style.display = "block";
+
+  const nome = sessionStorage.getItem("usuarioLogado") || "Anônimo";
+  salvarScore(nome, score); // 👈 Agora o score vai ser enviado ao backend
 }
 
 function blandeNextButton() {
